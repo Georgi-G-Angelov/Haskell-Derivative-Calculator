@@ -4,8 +4,6 @@ import IC.TestSuite hiding (Id)
 import qualified IC.TestSuite as TS
 import Calculus
 
--- I don't know how to run tests for showExp
-
 evalTests
   = [ ((Val 7),  [("x",380)])
         ==> 7.0
@@ -199,7 +197,7 @@ allTestCases
     , testCase "diff"       (uncurry diff)       diffTests
     , testCase "diff2"      (uncurry diff2)      diff2Tests
     , floatTestCase "maclaurin"  (uncurry3 maclaurin) maclaurinTests
-    --, testCase "showExp" showExp showExpTests
+    , testCase "showExp" (showExp) showExpTests
     ]
 
 runTests = mapM_ goTest allTestCases

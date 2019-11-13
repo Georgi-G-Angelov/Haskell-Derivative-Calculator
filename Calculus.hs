@@ -2,16 +2,6 @@ module Calculus where
 
 import Data.Maybe
 
-{-
-Extension has been done in a separate function called diff2 as naturally
-it would not pass the test cases for diff. Therefore, separate tests for have
-been added for diff2.
-The added tests were checked using a derivative calculator.
-Moreover, diff2 was improved beyond the basic spec - a few more rules have
-been added such as the rule the -(-x) = x.
-The maclaurin function also has been further tested.
--}
-
 data UnOp = Neg | Sin | Cos | Log
           deriving (Eq, Ord, Show)
 
@@ -52,7 +42,6 @@ instance Num Exp where
   ex * (Val 0)   = Val 0
   (Val 0) * ex   = Val 0
   ex1 * ex2      = BinApp Mul ex1 ex2
--- Leave the following two undefined...
   signum         = undefined
   abs            = undefined
 
@@ -61,14 +50,12 @@ instance Fractional Exp where
   (Val 0) / ex   = 0
   ex / (Val 1)   = ex
   ex1 / ex2      = BinApp Div ex1 ex2
--- Leave the following one undefined...
   recip          = undefined
 
 instance Floating Exp where
   sin     = UnApp Sin
   cos     = UnApp Cos
   log     = UnApp Log
--- Leave the following fifteen undefined...
   tan     = undefined
   asin    = undefined
   acos    = undefined
@@ -129,8 +116,7 @@ diff (BinApp operator ex1 ex2) var
   | operator == Div = BinApp Div (BinApp Add (BinApp Mul (diff ex1 var) ex2) (UnApp Neg (BinApp Mul ex1 (diff ex2 var)))) (BinApp Mul ex2 ex2)
 
 --This is the improved version of diff
---It is used by maclaurin but I left the original diff as this one naturally
---does not pass the test cases.
+--It is used by maclaurin but I left the original diff
 diff2 :: Exp -> String -> Exp
 diff2 (Val number) var = Val 0
 diff2 (Id string) var
